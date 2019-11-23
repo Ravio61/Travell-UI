@@ -53,7 +53,7 @@ class ShoppingAppHomeState extends State<ShoppingAppHome>{
     new RealEstateModel(
         img: 'https://www.ryanhomes.com/rh-community-gallery-NewAspectRatio/969616de-2e2c-4229-8941-05dcfc63f3b5/db/969616de-2e2c-4229-8941-05dcfc63f3b5.jpg',
         address: '088 Alisha Hill Apt. 345',
-        name: 'Family House',
+        name: 'House',
         priceOff: '15%'
     ),
   ];
@@ -250,22 +250,25 @@ class ShoppingAppHomeState extends State<ShoppingAppHome>{
                               children: <Widget>[
                                 LayoutBuilder(
                                   builder: (BuildContext con, BoxConstraints constraints){
-                                    return Container(
-                                      width: MediaQuery.of(context).size.width * 0.65,
-                                      height: constraints.maxHeight - 20,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                          bottomLeft: Radius.circular(30),
-                                          topLeft: Radius.circular(30),
-                                          bottomRight: Radius.circular(30),
-                                        ),
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(item.img),
-                                            colorFilter: ColorFilter.mode(
-                                              Colors.black.withOpacity(0.0),
-                                              BlendMode.hardLight,
-                                            )
+                                    return Hero(
+                                      tag: item.name,
+                                      child: Container(
+                                        width: MediaQuery.of(context).size.width * 0.65,
+                                        height: constraints.maxHeight - 20,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.circular(30),
+                                            topLeft: Radius.circular(30),
+                                            bottomRight: Radius.circular(30),
+                                          ),
+                                          image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(item.img),
+                                              colorFilter: ColorFilter.mode(
+                                                Colors.black.withOpacity(0.0),
+                                                BlendMode.hardLight,
+                                              )
+                                          ),
                                         ),
                                       ),
                                     );

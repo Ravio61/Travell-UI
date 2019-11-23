@@ -11,7 +11,37 @@ class DetailsScreen extends StatefulWidget{
   }
 }
 
-class _DetailsScreenState extends State<DetailsScreen>{
+class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProviderStateMixin{
+
+  AnimationController _bottomContainerController;
+
+  static double bookButtonBottomOffset = -2000;
+  double bookButtonBottom = bookButtonBottomOffset;
+
+  static double bottomRowOffset = -80;
+  double bottomRowButtons = bottomRowOffset;
+
+  @override
+  void initState(){
+    super.initState();
+
+    Future.delayed(Duration(milliseconds: 300)).then((v) {
+      setState(() {
+        bookButtonBottom = 0;
+      });
+    });
+
+    Future.delayed(Duration(milliseconds: 700)).then((v) {
+      setState(() {
+        bottomRowButtons = 20;
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   _DetailsScreenState(this.item);
   final RealEstateModel item;
@@ -24,30 +54,41 @@ class _DetailsScreenState extends State<DetailsScreen>{
         width:  media.size.width,
         child: Stack(
           children: <Widget>[
-            Container(
-              height: media.size.height * 0.45,
-              width: media.size.width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(item.img),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                    Colors.black.withOpacity(0.2),
-                    BlendMode.hardLight,
+            Hero(
+              tag:item.name,
+              child: Container(
+                height: media.size.height * 0.45,
+                width: media.size.width,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(item.img),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.2),
+                      BlendMode.hardLight,
+                    ),
                   ),
                 ),
               ),
             ),
-            Positioned(
-              top: media.size.height * 0.4 - 50,
+            AnimatedPositioned(
+              duration: Duration(milliseconds: 400),
+              curve: Interval(
+                0,
+                0.5,
+                curve: Curves.easeInOut,
+              ),
+              bottom: bookButtonBottom,
+              //top: media.size.height * 0.4 - 50,
               height: media.size.height * 0.6 + 50,
               width: media.size.width,
               child: Container(
-                padding: EdgeInsets.only(left: 30, right: 20, top: 30),
+                padding: EdgeInsets.only(left: 30, right: 30, top: 30),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(80),
+                    topRight: Radius.circular(80),
                   )
                 ),
                 child: Column(
@@ -191,65 +232,78 @@ class _DetailsScreenState extends State<DetailsScreen>{
                       ),
                     ),
                     Spacer(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Expanded(
-                          child: InkWell(
-                            onTap: (){
-                              //TODO
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFe2d7f5),
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(20),
-                                  bottomLeft: Radius.circular(20),
-                                  bottomRight: Radius.circular(20),
-                                )
-                              ),
-                              child: Text(
-                                'Ask a Question',
-                                style: TextStyle(
-                                  color: Color(0xff6732c1),
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 10,),
-                        Expanded(
-                          child: InkWell(
-                            onTap: (){
-                              //TODO
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFe2d7f5),
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    bottomLeft: Radius.circular(20),
-                                    bottomRight: Radius.circular(20),
-                                  )
-                              ),
-                              child: Text(
-                                'Express Interest',
-                                style: TextStyle(
-                                  color: Color(0xff6732c1),
-                                  fontSize: 18,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     SizedBox(height: 15,),
+                  ],
+                ),
+              ),
+            ),
+            AnimatedPositioned(
+              duration: Duration(milliseconds: 400),
+              curve: Interval(
+                0,
+                0.5,
+                curve: Curves.easeInOut,
+              ),
+              bottom: bottomRowButtons,
+              width: media.size.width,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Expanded(
+                      child: InkWell(
+                        onTap: (){
+                          //TODO
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Color(0xFFe2d7f5),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                              )
+                          ),
+                          child: Text(
+                            'Ask a Question',
+                            style: TextStyle(
+                              color: Color(0xff6732c1),
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 10,),
+                    Expanded(
+                      child: InkWell(
+                        onTap: (){
+                          //TODO
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: Color(0xFFe2d7f5),
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                bottomLeft: Radius.circular(20),
+                                bottomRight: Radius.circular(20),
+                              )
+                          ),
+                          child: Text(
+                            'Express Interest',
+                            style: TextStyle(
+                              color: Color(0xff6732c1),
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
