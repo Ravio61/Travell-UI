@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:shopping_app/animated_widgets/animated_button.dart';
 import 'package:shopping_app/models/real_estate_model.dart';
 
 class DetailsScreen extends StatefulWidget{
@@ -13,7 +16,20 @@ class DetailsScreen extends StatefulWidget{
 
 class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProviderStateMixin{
 
-  AnimationController _bottomContainerController;
+  GlobalKey _columnKey = GlobalKey();
+
+  Future<void> _createMovement(done) async {
+    await Future.delayed(Duration(seconds: 1));
+    bool successFlag = Random().nextInt(50) % 2 == 0 ? true : false;
+    if (successFlag) {
+//      Navigator.of(context)
+//          .pushNamed(NavigationConstrants.NOTIFICATION_SUCCESS);
+    } else {
+//      Navigator.of(context).pushNamed(NavigationConstrants.NOTIFICATION_ERROR);
+    }
+    return done(successFlag);
+  }
+
 
   static double bookButtonBottomOffset = -2000;
   double bookButtonBottom = bookButtonBottomOffset;
@@ -21,19 +37,23 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
   static double bottomRowOffset = -80;
   double bottomRowButtons = bottomRowOffset;
 
+  static double confirmButtonOffset = -160;
+  double confirmButton = confirmButtonOffset;
+
   @override
   void initState(){
     super.initState();
 
-    Future.delayed(Duration(milliseconds: 300)).then((v) {
+    Future.delayed(Duration(milliseconds: 100)).then((v) {
       setState(() {
         bookButtonBottom = 0;
       });
     });
 
-    Future.delayed(Duration(milliseconds: 700)).then((v) {
+    Future.delayed(Duration(milliseconds: 200)).then((v) {
       setState(() {
         bottomRowButtons = 20;
+        confirmButton = 100;
       });
     });
   }
@@ -61,7 +81,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                 width: media.size.width,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(item.img),
+                    image: AssetImage(item.img),
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(
                       Colors.black.withOpacity(0.2),
@@ -72,14 +92,13 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
               ),
             ),
             AnimatedPositioned(
-              duration: Duration(milliseconds: 400),
+              duration: Duration(milliseconds: 800),
               curve: Interval(
                 0,
                 0.5,
                 curve: Curves.easeInOut,
               ),
               bottom: bookButtonBottom,
-              //top: media.size.height * 0.4 - 50,
               height: media.size.height * 0.6 + 50,
               width: media.size.width,
               child: Container(
@@ -92,6 +111,7 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
                   )
                 ),
                 child: Column(
+                  key: _columnKey,
                   children: <Widget>[
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -238,11 +258,26 @@ class _DetailsScreenState extends State<DetailsScreen> with SingleTickerProvider
               ),
             ),
             AnimatedPositioned(
-              duration: Duration(milliseconds: 400),
+              duration: Duration(milliseconds: 1600),
               curve: Interval(
                 0,
                 0.5,
-                curve: Curves.easeInOut,
+                curve: Curves.elasticInOut,
+              ),
+              bottom: confirmButton,
+              width: media.size.width,
+              child: CustomProgressButton(
+                title: "Book Now",
+                operation: _createMovement,
+                canExecuteOperation: () => true,
+              ),
+            ),
+            AnimatedPositioned(
+              duration: Duration(milliseconds: 1600),
+              curve: Interval(
+                0,
+                0.5,
+                curve: Curves.elasticInOut,
               ),
               bottom: bottomRowButtons,
               width: media.size.width,

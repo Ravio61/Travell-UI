@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/pages/real_estate_details.dart';
+import 'package:shopping_app/pages/search_result.dart';
 import 'package:shopping_app/utilities/bottom_nav_bar.dart';
 import 'models/real_estate_model.dart';
 
@@ -34,91 +35,40 @@ class ShoppingAppHome extends StatefulWidget{
 
 class ShoppingAppHomeState extends State<ShoppingAppHome>{
 
-  PageController _pageController;
-
-
   List<RealEstateModel> realEstatesResult = [
-    new RealEstateModel(
-        img: 'https://rew-feed-images.global.ssl.fastly.net/creb/_cloud_media/listing/detached/c4241465-3-o.jpg',
-        address: '088 Alisha Hill Apt. 345',
-        name: 'Family House',
+    RealEstateModel(
+        img: 'hotel/hotel_1.png',
+        address: 'Wembly, London',
+        name: 'Grand Royal Hotel',
         priceOff: '33%'
     ),
-    new RealEstateModel(
-        img: 'http://www.grandviewriverhouse.com/box/sm/inspiring-european-cottage-style-house-plans-on-interior-decor_bathroom-inspiration.jpg',
-        address: '55 Alisha Hill Apt. 345',
-        name: 'ArtHouse',
+    RealEstateModel(
+        img: 'hotel/hotel_2.png',
+        address: 'Wembly, London',
+        name: 'Queen Hotel',
         priceOff: '50%'
     ),
-    new RealEstateModel(
-        img: 'https://www.ryanhomes.com/rh-community-gallery-NewAspectRatio/969616de-2e2c-4229-8941-05dcfc63f3b5/db/969616de-2e2c-4229-8941-05dcfc63f3b5.jpg',
-        address: '088 Alisha Hill Apt. 345',
-        name: 'House',
-        priceOff: '15%'
+    RealEstateModel(
+        img: 'hotel/hotel_3.png',
+        address: 'Wembly, London',
+        name: 'Grand Island Hotel',
+        priceOff: '20%'
+    ),
+    RealEstateModel(
+        img: 'hotel/hotel_4.png',
+        address: 'Wembly, London',
+        name: 'Royal King\'s Palace',
+        priceOff: '18%'
+    ),
+    RealEstateModel(
+        img: 'hotel/hotel_5.png',
+        address: 'Wembly, London',
+        name: 'Carnival Hotel',
+        priceOff: '45%'
     ),
   ];
 
-
-
-  List images = [
-    AssetImage('images/1.jpg'),
-    AssetImage('images/2.jpg'),
-    AssetImage('images/3.jpg'),
-    AssetImage('images/4.jpg'),
-    AssetImage('images/5.jpg'),
-  ];
-
-  _itemSelector(int index){
-    return AnimatedBuilder(
-      animation: _pageController,
-      builder: (BuildContext context,Widget widget){
-        double value = 1;
-        if(_pageController.position.haveDimensions){
-          value = _pageController.page - index;
-          value = (1-(value.abs()*0.3)+0.6).clamp(0.0, 1.0);
-        }
-        return Center(
-          child: SizedBox(
-            height: Curves.easeInOut.transform(value)*270.0,
-            width: Curves.easeInOut.transform(value)*400.0,
-            child: widget,
-          ),
-        );
-      },
-      child: Stack(
-        children: <Widget>[
-          Center(
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 10.0,vertical: 20.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black54,
-                    offset: Offset(0.0,4.0),
-                    blurRadius: 10.0,
-                  )
-                ]
-              ),
-              child: Image(
-                image: images[index],
-                height: 250,
-                fit: BoxFit.cover,
-
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(initialPage: 1, viewportFraction: 0.8);
-  }
-
+  String _searchText;
 
   Widget _buildHeader(){
     return Positioned(
@@ -189,7 +139,7 @@ class ShoppingAppHomeState extends State<ShoppingAppHome>{
                     ),
                   ),
                   Text(
-                    'Suitable Home',
+                    'Suitable Hotel',
                     style: TextStyle(
                       fontSize: 35.0,
                     ),
@@ -212,24 +162,36 @@ class ShoppingAppHomeState extends State<ShoppingAppHome>{
                             decoration: InputDecoration(
                                 border:InputBorder.none,
                                 prefixIcon: Icon(Icons.search,color: Color(0xff7645c7),),
-                                hintText: 'Find a good home',
+                                hintText: 'Find a good hotel',
                                 hintStyle:TextStyle(
                                   color: Color(0xff7645c7),
                                   fontWeight: FontWeight.bold,
                                 )
                             ),
+                            onChanged: (String value){
+                              _searchText = value;
+                            },
                           ),
                         ),
                       ),
                       SizedBox(width: 10,),
-                      Container(
-                        height: 55,
-                        width: 55,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                          color: Color(0xFFe2d7f5),
+                      InkWell(
+                        onTap: (){
+                          if(_searchText != null){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => SearchResult(realEstatesResult)));
+                          }
+                        },
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        splashColor: Color(0xff7645c7),
+                        child: Container(
+                          height: 55,
+                          width: 55,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                            color: Color(0xFFe2d7f5),
+                          ),
+                          child: Icon(Icons.search,color: Color(0xff7645c7),),
                         ),
-                        child: Icon(Icons.search,color: Color(0xff7645c7),),
                       )
                     ],
                   ),
@@ -263,7 +225,7 @@ class ShoppingAppHomeState extends State<ShoppingAppHome>{
                                           ),
                                           image: DecorationImage(
                                               fit: BoxFit.cover,
-                                              image: NetworkImage(item.img),
+                                              image: AssetImage(item.img),//TODO
                                               colorFilter: ColorFilter.mode(
                                                 Colors.black.withOpacity(0.0),
                                                 BlendMode.hardLight,
