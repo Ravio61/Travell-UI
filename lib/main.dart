@@ -5,9 +5,9 @@ import 'package:shopping_app/pages/search_result.dart';
 import 'package:shopping_app/utilities/bottom_nav_bar.dart';
 import 'models/real_estate_model.dart';
 
-void main() => runApp(ShoppingApp());
+void main() => runApp(HotelBookingApp());
 
-class ShoppingApp extends StatelessWidget{
+class HotelBookingApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
