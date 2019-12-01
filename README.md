@@ -1,5 +1,4 @@
-# shopping_app
-
+# Hotel booking app concept
 A new Flutter project.
 
 ## Getting Started
