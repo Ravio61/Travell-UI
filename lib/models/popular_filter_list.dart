@@ -13,11 +13,11 @@ class PopularFilterListData {
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Free Parking',
+      titleTxt: 'Party Lawn',
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Pool',
+      titleTxt: 'Swmming Pool',
       isSelected: true,
     ),
     PopularFilterListData(
@@ -25,7 +25,11 @@ class PopularFilterListData {
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Free wifi',
+      titleTxt: 'Free Wifi',
+      isSelected: false,
+    ),
+    PopularFilterListData(
+      titleTxt: 'Gym',
       isSelected: false,
     ),
   ];
@@ -36,11 +40,11 @@ class PopularFilterListData {
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Apartment',
+      titleTxt: 'Pent House',
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Home',
+      titleTxt: 'Farm House',
       isSelected: true,
     ),
     PopularFilterListData(
@@ -53,6 +57,14 @@ class PopularFilterListData {
     ),
     PopularFilterListData(
       titleTxt: 'Resort',
+      isSelected: false,
+    ),
+    PopularFilterListData(
+      titleTxt: 'Apartment',
+      isSelected: false,
+    ),
+    PopularFilterListData(
+      titleTxt: 'Rooms',
       isSelected: false,
     ),
   ];

@@ -33,7 +33,7 @@ class _BottomNavBarState extends State<BottomNavBar> with SingleTickerProviderSt
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           _buildNav('Home', Icons.home, 0),
-          _buildNav('Notification', Icons.notifications, 1),
+          _buildNav('Alert', Icons.room_service, 1),
           _buildNav('Saved', Icons.bookmark, 2),
           _buildNav('Profile', Icons.person, 3),
         ],

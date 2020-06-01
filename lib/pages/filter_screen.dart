@@ -33,7 +33,7 @@ class _FilterScreenState extends State<FilterScreen>{
           color: Colors.black54,
         ),
         title: Text(
-          'Filter Options',
+          'Filters',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.black54,
@@ -49,7 +49,7 @@ class _FilterScreenState extends State<FilterScreen>{
               Padding(
                 padding: const EdgeInsets.only(left:22),
                 child: Text(
-                  'Price (for 1 night)',
+                  'Price (per day/per night)',
                   style: _sectionHeaderStyle,
                 ),
               ),
@@ -126,7 +126,7 @@ class _FilterScreenState extends State<FilterScreen>{
               Padding(
                 padding: const EdgeInsets.only(left: 22),
                 child: Text(
-                  'Populor Filters',
+                  'Popular Filters',
                   style: _sectionHeaderStyle,
                 ),
               ),
@@ -144,7 +144,7 @@ class _FilterScreenState extends State<FilterScreen>{
               Padding(
                 padding: const EdgeInsets.only(left: 22),
                 child: Text(
-                  'Distance from city center',
+                  'Distance from nearest airport',
                   style: _sectionHeaderStyle,
                 ),
               ),

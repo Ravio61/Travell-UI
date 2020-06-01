@@ -87,7 +87,7 @@ class ShoppingAppHomeState extends State<ShoppingAppHome>{
             ),
             SizedBox(width: 5.0,),
             Text(
-              'Prateek',
+              'Ravi',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 25.0
@@ -139,7 +139,7 @@ class ShoppingAppHomeState extends State<ShoppingAppHome>{
                     ),
                   ),
                   Text(
-                    'Suitable Hotel',
+                    'Amazing Hotel',
                     style: TextStyle(
                       fontSize: 35.0,
                     ),
